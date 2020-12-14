@@ -1,0 +1,6 @@
+- type: changed
+  description: Send mercurial hook callbacks over separate tcp socket instead of http ([#1416](https://github.com/scm-manager/scm-manager/pull/1416))
+- type: fixed
+  description: Unexpected mercurial server pool stop
+- type: added
+  description:
