@@ -1,0 +1,4 @@
+- type: changed
+  description: Stop fetching commits when it takes too long
+- type: added
+  description: Set individual page title
