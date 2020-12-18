@@ -17,7 +17,7 @@ import static cloudogu.scm.changelog.lib.Changelog.DATE_FORMAT;
 
 public class ChangelogParser {
 
-    private static final Pattern VERSION_PATTERN = Pattern.compile("##\\W+\\[([0-9.]+(?:-.*)?)] - (....-..-..)");
+    private static final Pattern VERSION_PATTERN = Pattern.compile("##\\W+\\[?([0-9.]+(?:-[^]\\W]*)?)]? - (....-..-..)");
     private static final Pattern TYPE_PATTERN = Pattern.compile("###\\W+(.*)");
     private static final Pattern CHANGE_PATTERN = Pattern.compile("-\\W+(.*)");
     private static final Pattern LINK_PATTERN = Pattern.compile("\\[([0-9.]+(?:-.*)?)]:\\W+(.+)");

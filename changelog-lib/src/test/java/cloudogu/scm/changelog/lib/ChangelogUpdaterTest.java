@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,9 +19,26 @@ public class ChangelogUpdaterTest {
     public TemporaryFolder folder = new TemporaryFolder();
 
     @Test
-    public void shouldCreateCorrectChangelog() throws IOException, ParseException {
+    public void shouldCreateCorrectChangelog() throws IOException {
         final Path changelogResourceFile = Paths.get(Resources.getResource("changelog.md").getFile());
         final Path expectedChangelogResourceFile = Paths.get(Resources.getResource("expected_changelog.md").getFile());
+        final Path unreleasedChangelogEntriesResourceFile = Paths.get(Resources.getResource("multiple").getFile());
+
+        final Path changelogFile = folder.getRoot().toPath().resolve("CHANGELOG.md");
+        Files.copy(changelogResourceFile, changelogFile);
+
+        new ChangelogUpdater(changelogFile, unreleasedChangelogEntriesResourceFile, "2.12.0", Instant.parse("2020-12-15T10:15:30.00Z"))
+                .update();
+
+        final String actualChangelog = Files.readString(changelogFile);
+        final String expectedChangelog = Files.readString(expectedChangelogResourceFile);
+        assertThat(actualChangelog).isEqualTo(expectedChangelog);
+    }
+
+    @Test
+    public void shouldCreateCorrectChangelogWithLinks() throws IOException {
+        final Path changelogResourceFile = Paths.get(Resources.getResource("changelog_with_links.md").getFile());
+        final Path expectedChangelogResourceFile = Paths.get(Resources.getResource("expected_changelog_with_links.md").getFile());
         final Path unreleasedChangelogEntriesResourceFile = Paths.get(Resources.getResource("multiple").getFile());
 
         final Path changelogFile = folder.getRoot().toPath().resolve("CHANGELOG.md");
