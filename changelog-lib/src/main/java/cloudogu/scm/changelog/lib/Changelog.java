@@ -74,7 +74,16 @@ public class Changelog {
         }
 
         public void write(PrintWriter out) {
+            out.println("## " + version + " - " + DATE_FORMAT.format(date));
+            writeChanges(out);
+        }
+
+        public void writeWithLink(PrintWriter out) {
             out.println("## [" + version + "] - " + DATE_FORMAT.format(date));
+            writeChanges(out);
+        }
+
+        private void writeChanges(PrintWriter out) {
             getChanges().forEach((key, value) -> {
                 out.println("### " + capitalize(key));
                 value.forEach(change -> change.write(out));

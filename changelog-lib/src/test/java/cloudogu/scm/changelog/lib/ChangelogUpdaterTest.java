@@ -33,7 +33,9 @@ public class ChangelogUpdaterTest {
         final Path changelogFile = folder.getRoot().toPath().resolve("CHANGELOG.md");
         Files.copy(changelogResourceFile, changelogFile);
 
-        new ChangelogUpdater(changelogFile, unreleasedChangelogEntriesResourceFile, "2.12.0", Instant.parse("2020-12-15T10:15:30.00Z")).update();
+        new ChangelogUpdater(changelogFile, unreleasedChangelogEntriesResourceFile, "2.12.0", Instant.parse("2020-12-15T10:15:30.00Z"))
+                .withDownloadUrls("https://www.scm-manager.org/download/{0}")
+                .update();
 
         final String actualChangelog = Files.readString(changelogFile);
         final String expectedChangelog = Files.readString(expectedChangelogResourceFile);

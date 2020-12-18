@@ -45,12 +45,19 @@ public class ChangelogMojo
     @Parameter(property = "changelog.unreleased", defaultValue = "unreleased")
     private String unreleasedDirectory;
 
+    @Parameter(property = "changelog.downloadUrlPattern")
+    private String downloadUrlPattern;
+
     public void execute()
         throws MojoExecutionException
     {
         try
         {
-            new ChangelogUpdater(Paths.get(changelogFile), Paths.get(unreleasedDirectory), version).update();
+            ChangelogUpdater changelogUpdater = new ChangelogUpdater(Paths.get(changelogFile), Paths.get(unreleasedDirectory), version);
+            if (downloadUrlPattern != null) {
+                changelogUpdater.withDownloadUrls(downloadUrlPattern);
+            }
+            changelogUpdater.update();
         }
         catch ( IOException e )
         {

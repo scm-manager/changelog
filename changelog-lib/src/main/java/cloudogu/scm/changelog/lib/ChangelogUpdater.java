@@ -7,15 +7,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.MessageFormat;
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.function.BiConsumer;
 
 public final class ChangelogUpdater {
 
@@ -24,6 +20,7 @@ public final class ChangelogUpdater {
     private final Path changelogsDirectory;
     private final String version;
     private final Instant date;
+    private String downloadUrlPattern;
 
     public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, String version) {
         this(changelogFile, changelogsDirectory, version, Instant.now());
@@ -45,52 +42,30 @@ public final class ChangelogUpdater {
         Changelog oldChangelog = new ChangelogParser().parse(changelogFile);
         try (PrintWriter out = new PrintWriter(Files.newBufferedWriter(changelogFile))) {
             oldChangelog.getHeader().forEach(out::println);
-            newVersion.write(out);
-            oldChangelog.getVersions().forEach(v -> v.write(out));
+            writeVersion(newVersion, out);
+            oldChangelog.getVersions().forEach(v -> writeVersion(v, out));
             oldChangelog.getLinks().forEach(link -> link.write(out));
-            new Changelog.VersionLink(version, "https://www.scm-manager.org/download/" + version).write(out);
-        }
-    }
-
-    static List<String> entriesToChangelog(List<Map.Entry<String, List<ChangelogEntryDao>>> entries) {
-        List<String> newLines = new ArrayList<>();
-        for (Map.Entry<String, List<ChangelogEntryDao>> entry : entries) {
-            newLines.add(typeToString(entry.getKey()));
-            entry.getValue().forEach(it -> newLines.add(entryToString(it)));
-            newLines.add("");
-        }
-        return newLines;
-    }
-
-    static List<ChangelogEntryDao> getEntries(Path fileOrDirectory) {
-        List<ChangelogEntryDao> entries = new ArrayList<>();
-        try {
-            if (Files.isDirectory(fileOrDirectory)) {
-                Files.list(fileOrDirectory).forEach(file -> entries.addAll(getEntries(file)));
-            } else {
-                entries.addAll(
-                        (Collection<? extends ChangelogEntryDao>) yaml.loadAs(Files.newInputStream(fileOrDirectory), List.class)
-                                .stream()
-                                .map(it -> new ChangelogEntryDao(((LinkedHashMap<String, String>) it).get("type"), ((LinkedHashMap<String, String>) it).get("description")))
-                                .collect(Collectors.toList())
-                );
+            if (shouldWriteLinks()) {
+                new Changelog.VersionLink(version, MessageFormat.format(downloadUrlPattern, version)).write(out);
             }
-        } catch (IOException e) {
-            throw new ReadFileException(fileOrDirectory, e);
         }
-        return entries;
     }
 
-    static String typeToString(String type) {
-        return "### " + capitalize(type);
+    private void writeVersion(Changelog.Version v, PrintWriter out) {
+        if (shouldWriteLinks()) {
+            v.writeWithLink(out);
+        } else {
+            v.write(out);
+        }
     }
 
-    static String entryToString(ChangelogEntryDao entry) {
-        return "- " + entry.getDescription();
+    private boolean shouldWriteLinks() {
+        return downloadUrlPattern != null;
     }
 
-    static String capitalize(String str) {
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    public ChangelogUpdater withDownloadUrls(String downloadUrlPattern) {
+        this.downloadUrlPattern = downloadUrlPattern;
+        return this;
     }
 
     static class ChangelogEntryDao {
