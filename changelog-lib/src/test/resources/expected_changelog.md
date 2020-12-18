@@ -5,25 +5,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2.12.0] - 2020-12-15
-
 ### Added
-- Set individual page title
 - Copy on write
+- Set individual page title
 
 ### Fixed
-- Failing git push does not lead to an GitAPIException
 - Unexpected mercurial server pool stop
+- Failing git push does not lead to an GitAPIException
 
 ### Changed
-- Send mercurial hook callbacks over separate tcp socket instead of http ([#1416](https://github.com/scm-manager/scm-manager/pull/1416))
 - Stop fetching commits when it takes too long
+- Send mercurial hook callbacks over separate tcp socket instead of http ([#1416](https://github.com/scm-manager/scm-manager/pull/1416))
 
 ## [2.11.1] - 2020-12-07
 ### Fixed
 - Initialization of new git repository with master set as default branch ([#1467](https://github.com/scm-manager/scm-manager/issues/1467) and [#1470](https://github.com/scm-manager/scm-manager/pull/1470))
 
 ## [2.11.0] - 2020-12-04
-
 ### Added
 - Add tooltips to short links on repository overview ([#1441](https://github.com/scm-manager/scm-manager/pull/1441))
 - Show the date of the last commit for branches in the frontend ([#1439](https://github.com/scm-manager/scm-manager/pull/1439))
@@ -63,7 +61,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.9.1] - 2020-11-11
 ### Fixed
 - German translation for repositories view
-
 
 ## [2.9.0] - 2020-11-06
 ### Added
@@ -177,7 +174,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove obsolete revision encoding on sources ([#1315](https://github.com/scm-manager/scm-manager/pull/1315))
 - Map generic JaxRS 'web application exceptions' to appropriate response instead of "internal server error" ([#1318](https://github.com/scm-manager/scm-manager/pull/1312))
 
-
 ## [2.4.0] - 2020-08-14
 ### Added
 - Introduced merge detection for receive hooks ([#1278](https://github.com/scm-manager/scm-manager/pull/1278))
@@ -206,7 +202,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Avoid stacktrace logging when protocol url is accessed outside of request scope ([#1276](https://github.com/scm-manager/scm-manager/pull/1276))
 
 ## [2.3.0] - 2020-07-23
-
 ### Added
 - Add branch link provider to access branch links in plugins ([#1243](https://github.com/scm-manager/scm-manager/pull/1243))
 - Add key value input field component ([#1246](https://github.com/scm-manager/scm-manager/pull/1246))
@@ -400,7 +395,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Plugins are validated directly after download
 - Code highlighting in diffs
 - Switch between rendered version and source view for Markdown files
-
 
 ### Changed
 - Stop fetching commits when it takes too long

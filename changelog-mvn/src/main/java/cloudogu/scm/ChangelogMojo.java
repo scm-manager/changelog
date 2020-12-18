@@ -16,21 +16,20 @@ package cloudogu.scm;
  * limitations under the License.
  */
 
-import cloudogu.scm.changelog.lib.ChangelogUtil;
+import cloudogu.scm.changelog.lib.ChangelogUpdater;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Goal which touches a timestamp file.
  *
  * @goal touch
- * 
+ *
  * @phase process-sources
  */
 @Mojo(name = "update-changelog")
@@ -51,7 +50,7 @@ public class ChangelogMojo
     {
         try
         {
-            ChangelogUtil.updateChangelog(new File(changelogFile), new File(unreleasedDirectory), version);
+            new ChangelogUpdater(Paths.get(changelogFile), Paths.get(unreleasedDirectory), version).update();
         }
         catch ( IOException e )
         {
