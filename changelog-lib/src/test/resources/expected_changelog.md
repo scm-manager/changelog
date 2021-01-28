@@ -4,26 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.12.0] - 2020-12-15
-
+## 2.12.0 - 2020-12-15
 ### Added
-- Set individual page title
 - Copy on write
+- Set individual page title
 
 ### Fixed
-- Failing git push does not lead to an GitAPIException
 - Unexpected mercurial server pool stop
+- Failing git push does not lead to an GitAPIException
 
 ### Changed
-- Send mercurial hook callbacks over separate tcp socket instead of http ([#1416](https://github.com/scm-manager/scm-manager/pull/1416))
 - Stop fetching commits when it takes too long
+- Send mercurial hook callbacks over separate tcp socket instead of http ([#1416](https://github.com/scm-manager/scm-manager/pull/1416))
 
-## [2.11.1] - 2020-12-07
+## 2.11.1 - 2020-12-07
 ### Fixed
 - Initialization of new git repository with master set as default branch ([#1467](https://github.com/scm-manager/scm-manager/issues/1467) and [#1470](https://github.com/scm-manager/scm-manager/pull/1470))
 
-## [2.11.0] - 2020-12-04
-
+## 2.11.0 - 2020-12-04
 ### Added
 - Add tooltips to short links on repository overview ([#1441](https://github.com/scm-manager/scm-manager/pull/1441))
 - Show the date of the last commit for branches in the frontend ([#1439](https://github.com/scm-manager/scm-manager/pull/1439))
@@ -41,12 +39,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Language detection of files with interpreter parameters e.g.: `#!/usr/bin/make -f` ([#1450](https://github.com/scm-manager/scm-manager/issues/1450))
 - Unexpected mercurial server pool stop ([#1446](https://github.com/scm-manager/scm-manager/issues/1446) and [#1457](https://github.com/scm-manager/scm-manager/issues/1457))
 
-## [2.10.1] - 2020-11-24
+## 2.10.1 - 2020-11-24
 ### Fixed
 - Improved logging of failures during plugin installation ([#1442](https://github.com/scm-manager/scm-manager/pull/1442))
 - Do not throw exception when plugin file does not exist on cancelled installation ([#1442](https://github.com/scm-manager/scm-manager/pull/1442))
 
-## [2.10.0] - 2020-11-20
+## 2.10.0 - 2020-11-20
 ### Added
 - Delete branches directly in the UI ([#1422](https://github.com/scm-manager/scm-manager/pull/1422))
 - Lookup command which provides further repository information ([#1415](https://github.com/scm-manager/scm-manager/pull/1415))
@@ -60,12 +58,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adhere to git quiet flag ([#1421](https://github.com/scm-manager/scm-manager/pull/1421))
 - Resolve svn binary diffs properly [#1427](https://github.com/scm-manager/scm-manager/pull/1427)
 
-## [2.9.1] - 2020-11-11
+## 2.9.1 - 2020-11-11
 ### Fixed
 - German translation for repositories view
 
-
-## [2.9.0] - 2020-11-06
+## 2.9.0 - 2020-11-06
 ### Added
 - Tracing api ([#1393](https://github.com/scm-manager/scm-manager/pull/#1393))
 - Automatic user converter for external users ([#1380](https://github.com/scm-manager/scm-manager/pull/1380))
@@ -81,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SVN diff with property changes ([#1400](https://github.com/scm-manager/scm-manager/pull/1400))
 - Branches link in repository overview ([#1404](https://github.com/scm-manager/scm-manager/pull/1404))
 
-## [2.8.0] - 2020-10-27
+## 2.8.0 - 2020-10-27
 ### Added
 - Generation of email addresses for users, where none is configured ([#1370](https://github.com/scm-manager/scm-manager/pull/1370))
 - Source code fullscreen view ([#1376](https://github.com/scm-manager/scm-manager/pull/1376))
@@ -96,11 +93,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SyntaxHighlighting for GoLang ([#1386](https://github.com/scm-manager/scm-manager/pull/1386))
 - Privilege escalation for api keys ([#1388](https://github.com/scm-manager/scm-manager/pull/1388))
 
-## [2.6.3] - 2020-10-16
+## 2.6.3 - 2020-10-16
 ### Fixed
 - Missing default permission to manage public gpg keys ([#1377](https://github.com/scm-manager/scm-manager/pull/1377))
 
-## [2.7.1] - 2020-10-14
+## 2.7.1 - 2020-10-14
 ### Fixed
 - Null Pointer Exception on anonymous migration with deleted repositories ([#1371](https://github.com/scm-manager/scm-manager/pull/1371))
 - Null Pointer Exception on parsing SVN properties ([#1373](https://github.com/scm-manager/scm-manager/pull/1373))
@@ -108,11 +105,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Reduced logging for invalid JWT or api keys ([#1374](https://github.com/scm-manager/scm-manager/pull/1374))
 
-## [2.7.0] - 2020-10-12
+## 2.7.0 - 2020-10-12
 ### Added
 - Users can create API keys with limited permissions ([#1359](https://github.com/scm-manager/scm-manager/pull/1359))
 
-## [2.6.2] - 2020-10-09
+## 2.6.2 - 2020-10-09
 ### Added
 - Introduce api for handling token validation failed exception ([#1362](https://github.com/scm-manager/scm-manager/pull/1362))
 
@@ -121,11 +118,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix recursive browse command for git ([#1361](https://github.com/scm-manager/scm-manager/pull/1361))
 - SubRepository support ([#1357](https://github.com/scm-manager/scm-manager/pull/1357))
 
-## [2.6.1] - 2020-09-30
+## 2.6.1 - 2020-09-30
 ### Fixed
 - Not found error when using browse command in empty hg repository ([#1355](https://github.com/scm-manager/scm-manager/pull/1355))
 
-## [2.6.0] - 2020-09-25
+## 2.6.0 - 2020-09-25
 ### Added
 - Add support for pr merge with prior rebase ([#1332](https://github.com/scm-manager/scm-manager/pull/1332))
 - Tags overview for repository ([#1331](https://github.com/scm-manager/scm-manager/pull/1331))
@@ -146,7 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Return correct revisions for tags in hooks for git repositories ([#1344](https://github.com/scm-manager/scm-manager/pull/1344))
 - Add option for concrete commit message in merges without templating ([#1351](https://github.com/scm-manager/scm-manager/pull/1351))
 
-## [2.5.0] - 2020-09-10
+## 2.5.0 - 2020-09-10
 ### Added
 - Tags now have date information attached ([#1305](https://github.com/scm-manager/scm-manager/pull/1305))
 - Add support for scroll anchors in url hash of diff page ([#1304](https://github.com/scm-manager/scm-manager/pull/1304))
@@ -160,7 +157,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Diff view for svn now handles whitespaces in filenames properly ([1325](https://github.com/scm-manager/scm-manager/pull/1325))
 - Validate new namespace on repository rename ([#1322](https://github.com/scm-manager/scm-manager/pull/1322))
 
-## [2.4.1] - 2020-09-01
+## 2.4.1 - 2020-09-01
 ### Added
 - Add "sonia.scm.restart-migration.wait" to set wait in milliseconds before restarting scm-server after migration ([#1308](https://github.com/scm-manager/scm-manager/pull/1308))
 
@@ -177,8 +174,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Remove obsolete revision encoding on sources ([#1315](https://github.com/scm-manager/scm-manager/pull/1315))
 - Map generic JaxRS 'web application exceptions' to appropriate response instead of "internal server error" ([#1318](https://github.com/scm-manager/scm-manager/pull/1312))
 
-
-## [2.4.0] - 2020-08-14
+## 2.4.0 - 2020-08-14
 ### Added
 - Introduced merge detection for receive hooks ([#1278](https://github.com/scm-manager/scm-manager/pull/1278))
 - Anonymous mode for the web ui ([#1284](https://github.com/scm-manager/scm-manager/pull/1284))
@@ -194,7 +190,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Show error message if plugin loading failed ([#1289](https://github.com/scm-manager/scm-manager/pull/1289))
 - Fix timing problem with anchor links for markdown view ([#1290](https://github.com/scm-manager/scm-manager/pull/1290))
 
-## [2.3.1] - 2020-08-04
+## 2.3.1 - 2020-08-04
 ### Added
 - New api to resolve SCM-Manager root url ([#1276](https://github.com/scm-manager/scm-manager/pull/1276))
 
@@ -205,8 +201,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed unnecessary horizontal scrollbar in modal dialogs ([#1271](https://github.com/scm-manager/scm-manager/pull/1271))
 - Avoid stacktrace logging when protocol url is accessed outside of request scope ([#1276](https://github.com/scm-manager/scm-manager/pull/1276))
 
-## [2.3.0] - 2020-07-23
-
+## 2.3.0 - 2020-07-23
 ### Added
 - Add branch link provider to access branch links in plugins ([#1243](https://github.com/scm-manager/scm-manager/pull/1243))
 - Add key value input field component ([#1246](https://github.com/scm-manager/scm-manager/pull/1246))
@@ -226,7 +221,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ignore ports on proxy exclusions ([#1256](https://github.com/scm-manager/scm-manager/pull/1256))
 - Invalidate branches cache synchronously on create new branch ([#1261](https://github.com/scm-manager/scm-manager/pull/1261))
 
-## [2.2.0] - 2020-07-03
+## 2.2.0 - 2020-07-03
 ### Added
 - Rename repository name (and namespace if permitted) ([#1218](https://github.com/scm-manager/scm-manager/pull/1218))
 - Enrich commit mentions in markdown viewer by internal links  ([#1210](https://github.com/scm-manager/scm-manager/pull/1210))
@@ -247,13 +242,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed wrong package information for deb and rpm packages ([#1229](https://github.com/scm-manager/scm-manager/pull/1229))
 - Fixed missing content type on migration wizard ([#1234](https://github.com/scm-manager/scm-manager/pull/1234))
 
-## [2.1.1] - 2020-06-23
+## 2.1.1 - 2020-06-23
 ### Fixed
 - Wait until recommended java installation is available for deb packages ([#1209](https://github.com/scm-manager/scm-manager/pull/1209))
 - Do not force java home of recommended java dependency for rpm and deb packages ([#1195](https://github.com/scm-manager/scm-manager/issues/1195) and [#1208](https://github.com/scm-manager/scm-manager/pull/1208))
 - Migration of non-bare repositories ([#1213](https://github.com/scm-manager/scm-manager/pull/1213))
 
-## [2.1.0] - 2020-06-18
+## 2.1.0 - 2020-06-18
 ### Added
 - Option to configure jvm parameter of docker container with env JAVA_OPTS or with arguments ([#1175](https://github.com/scm-manager/scm-manager/pull/1175))
 - Added links in diff views to expand the gaps between "hunks" ([#1178](https://github.com/scm-manager/scm-manager/pull/1178))
@@ -276,7 +271,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Usage of short git commit ids in changeset urls ([#1200](https://github.com/scm-manager/scm-manager/pull/1200))
 - Fixes linebreaks in multiline tooltip ([#1207](https://github.com/scm-manager/scm-manager/pull/1207))
 
-## [2.0.0] - 2020-06-04
+## 2.0.0 - 2020-06-04
 ### Added
 - Detect renamed files in git and hg diffs ([#1157](https://github.com/scm-manager/scm-manager/pull/1157))
 - ClassLoader and Adapter parameters to typed store apis ([#1111](https://github.com/scm-manager/scm-manager/pull/1111))
@@ -288,7 +283,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Missing copy on write in the data store ([#1155](https://github.com/scm-manager/scm-manager/pull/1155))
 - Resolved conflicting dependencies for scm-webapp ([#1159](https://github.com/scm-manager/scm-manager/pull/1159))
 
-## [2.0.0-rc8] - 2020-05-08
+## 2.0.0-rc8 - 2020-05-08
 ### Added
 - Add iconStyle + onClick option and story shot for icon component ([#1100](https://github.com/scm-manager/scm-manager/pull/1100))
 - Making WebElements (Servlet or Filter) optional by using the `@Requires` annotation ([#1101](https://github.com/scm-manager/scm-manager/pull/1101))
@@ -309,7 +304,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Validate subversion client checksum ([#1113](https://github.com/scm-manager/scm-manager/issues/1113))
 - Fix plugin manage permission ([#1135](https://github.com/scm-manager/scm-manager/pull/1135))
 
-## [2.0.0-rc7] - 2020-04-09
+## 2.0.0-rc7 - 2020-04-09
 ### Added
 - Fire various plugin events ([#1088](https://github.com/scm-manager/scm-manager/pull/1088))
 - Display version for plugins ([#1089](https://github.com/scm-manager/scm-manager/pull/1089))
@@ -322,7 +317,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Authentication for write requests for repositories with anonymous read access ([#108](https://github.com/scm-manager/scm-manager/pull/1081))
 - Submodules in git do no longer lead to a server error in the browser command ([#1093](https://github.com/scm-manager/scm-manager/pull/1093))
 
-## [2.0.0-rc6] - 2020-03-26
+## 2.0.0-rc6 - 2020-03-26
 ### Added
 - Extension point to add links to the repository cards from plug ins ([#1041](https://github.com/scm-manager/scm-manager/pull/1041))
 - Libc based restart strategy for posix operating systems ([#1079](https://github.com/scm-manager/scm-manager/pull/1079))
@@ -346,7 +341,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Show specific notification for plugin actions on plugin administration ([#1057](https://github.com/scm-manager/scm-manager/pull/1057))
 - Invalid markdown could make parts of the page inaccessible ([#1077](https://github.com/scm-manager/scm-manager/pull/1077))
 
-## [2.0.0-rc5] - 2020-03-12
+## 2.0.0-rc5 - 2020-03-12
 ### Added
 - Added footer extension points for links and avatar
 - Create OpenAPI specification during build
@@ -371,7 +366,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enunciate rest documentation
 - Obsolete fields in data transfer objects
 
-## [2.0.0-rc4] - 2020-02-14
+## 2.0.0-rc4 - 2020-02-14
 ### Added
 - Support for Java versions > 8
 - Simple ClassLoaderLifeCycle to fix integration tests on Java > 8
@@ -387,12 +382,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Committer of new Git commits set to "SCM-Manager <noreply@scm-manager.org>"
 
-## [2.0.0-rc3] - 2020-01-31
+## 2.0.0-rc3 - 2020-01-31
 ### Fixed
 - Broken plugin order fixed
 - MarkdownViewer in code section renders markdown properly
 
-## [2.0.0-rc2] - 2020-01-29
+## 2.0.0-rc2 - 2020-01-29
 ### Added
 - Set individual page title
 - Copy on write
@@ -400,7 +395,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Plugins are validated directly after download
 - Code highlighting in diffs
 - Switch between rendered version and source view for Markdown files
-
 
 ### Changed
 - Stop fetching commits when it takes too long
@@ -415,7 +409,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Page title is now set correctly
 - Restart after migration
 
-## [2.0.0-rc1] - 2019-12-02
+## 2.0.0-rc1 - 2019-12-02
 ### Added
 - Namespace concept and endpoints
 - File history
@@ -433,34 +427,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cache and x-requested-with header to bundle requests
 - remove public flag from repository and migrate permissions to anonymous user
 
-[2.0.0-rc1]: https://www.scm-manager.org/download/2.0.0-rc1
-[2.0.0-rc2]: https://www.scm-manager.org/download/2.0.0-rc2
-[2.0.0-rc3]: https://www.scm-manager.org/download/2.0.0-rc3
-[2.0.0-rc4]: https://www.scm-manager.org/download/2.0.0-rc4
-[2.0.0-rc5]: https://www.scm-manager.org/download/2.0.0-rc5
-[2.0.0-rc6]: https://www.scm-manager.org/download/2.0.0-rc6
-[2.0.0-rc7]: https://www.scm-manager.org/download/2.0.0-rc7
-[2.0.0-rc8]: https://www.scm-manager.org/download/2.0.0-rc8
-[2.0.0]: https://www.scm-manager.org/download/2.0.0
-[2.1.0]: https://www.scm-manager.org/download/2.1.0
-[2.1.1]: https://www.scm-manager.org/download/2.1.1
-[2.2.0]: https://www.scm-manager.org/download/2.2.0
-[2.3.0]: https://www.scm-manager.org/download/2.3.0
-[2.3.1]: https://www.scm-manager.org/download/2.3.1
-[2.4.0]: https://www.scm-manager.org/download/2.4.0
-[2.4.1]: https://www.scm-manager.org/download/2.4.1
-[2.5.0]: https://www.scm-manager.org/download/2.5.0
-[2.6.0]: https://www.scm-manager.org/download/2.6.0
-[2.6.1]: https://www.scm-manager.org/download/2.6.1
-[2.6.2]: https://www.scm-manager.org/download/2.6.2
-[2.6.3]: https://www.scm-manager.org/download/2.6.3
-[2.7.0]: https://www.scm-manager.org/download/2.7.0
-[2.7.1]: https://www.scm-manager.org/download/2.7.1
-[2.8.0]: https://www.scm-manager.org/download/2.8.0
-[2.9.0]: https://www.scm-manager.org/download/2.9.0
-[2.9.1]: https://www.scm-manager.org/download/2.9.1
-[2.10.0]: https://www.scm-manager.org/download/2.10.0
-[2.10.1]: https://www.scm-manager.org/download/2.10.1
-[2.11.0]: https://www.scm-manager.org/download/2.11.0
-[2.11.1]: https://www.scm-manager.org/download/2.11.1
-[2.12.0]: https://www.scm-manager.org/download/2.12.0

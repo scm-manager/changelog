@@ -16,21 +16,20 @@ package cloudogu.scm;
  * limitations under the License.
  */
 
-import cloudogu.scm.changelog.lib.ChangelogUtil;
+import cloudogu.scm.changelog.lib.ChangelogUpdater;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Goal which touches a timestamp file.
  *
  * @goal touch
- * 
+ *
  * @phase process-sources
  */
 @Mojo(name = "update-changelog")
@@ -46,12 +45,19 @@ public class ChangelogMojo
     @Parameter(property = "changelog.unreleased", defaultValue = "unreleased")
     private String unreleasedDirectory;
 
+    @Parameter(property = "changelog.downloadUrlPattern")
+    private String downloadUrlPattern;
+
     public void execute()
         throws MojoExecutionException
     {
         try
         {
-            ChangelogUtil.updateChangelog(new File(changelogFile), new File(unreleasedDirectory), version);
+            ChangelogUpdater changelogUpdater = new ChangelogUpdater(Paths.get(changelogFile), Paths.get(unreleasedDirectory), version);
+            if (downloadUrlPattern != null) {
+                changelogUpdater.withDownloadUrls(downloadUrlPattern);
+            }
+            changelogUpdater.update();
         }
         catch ( IOException e )
         {
