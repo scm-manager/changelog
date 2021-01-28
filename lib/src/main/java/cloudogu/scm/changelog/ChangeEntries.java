@@ -62,13 +62,13 @@ public class ChangeEntries {
       try (Stream<Path> files = Files.list(fileOrDirectory)) {
         files.forEach(file -> entries.addAll(getEntries(file)));
       } catch (IOException e) {
-        throw new RuntimeException(e);
+        throw new ChangelogException("Failed to read changelog entries", e);
       }
     } else {
       entries.addAll(
         parse(fileOrDirectory)
           .stream()
-          .map(it -> new ChangelogEntry(((LinkedHashMap<String, String>) it).get("type"), ((LinkedHashMap<String, String>) it).get("description")))
+          .map(it -> new ChangelogEntry(it.get("type"), it.get("description")))
           .collect(Collectors.toList())
       );
     }
@@ -95,9 +95,9 @@ public class ChangeEntries {
 
   private static Collection<LinkedHashMap<String, String>> parse(Path fileOrDirectory) {
     try {
-      return (Collection<LinkedHashMap<String, String>>) YAML.loadAs(Files.newInputStream(fileOrDirectory), List.class);
+      return YAML.loadAs(Files.newInputStream(fileOrDirectory), List.class);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new ChangelogException("failed to parse changelog entry", e);
     }
   }
 

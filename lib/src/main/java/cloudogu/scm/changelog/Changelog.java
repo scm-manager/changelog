@@ -59,34 +59,34 @@ public class Changelog {
   }
 
   public static class Change {
-    private final String change;
+    private final String value;
 
-    public Change(String change) {
-      this.change = change;
+    public Change(String value) {
+      this.value = value;
     }
 
-    public String getChange() {
-      return change;
+    public String getValue() {
+      return value;
     }
 
     public void write(PrintWriter out) {
-      out.println("- " + change);
+      out.println("- " + value);
     }
   }
 
   public static class Version {
-    private final String version;
+    private final String number;
     private final Instant date;
     private final Map<String, List<Change>> changes;
 
-    public Version(String version, Instant date, Map<String, List<Change>> changes) {
-      this.version = version;
+    public Version(String number, Instant date, Map<String, List<Change>> changes) {
+      this.number = number;
       this.date = date;
       this.changes = changes;
     }
 
-    public String getVersion() {
-      return version;
+    public String getNumber() {
+      return number;
     }
 
     public Instant getDate() {
@@ -98,12 +98,12 @@ public class Changelog {
     }
 
     public void write(PrintWriter out) {
-      out.println("## " + version + " - " + DATE_FORMAT.format(date));
+      out.println("## " + number + " - " + DATE_FORMAT.format(date));
       writeChanges(out);
     }
 
     public void writeWithLink(PrintWriter out) {
-      out.println("## [" + version + "] - " + DATE_FORMAT.format(date));
+      out.println("## [" + number + "] - " + DATE_FORMAT.format(date));
       writeChanges(out);
     }
 

@@ -61,7 +61,7 @@ public class ChangelogParser {
     try {
       return Files.readAllLines(changelogFile);
     } catch (IOException e) {
-      throw new ReadFileException(changelogFile, e);
+      throw new ReadChangelogFileException(changelogFile, e);
     }
   }
 

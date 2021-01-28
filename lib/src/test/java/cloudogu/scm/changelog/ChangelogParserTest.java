@@ -117,9 +117,9 @@ public class ChangelogParserTest {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG);
     List<Changelog.Version> versions = changelog.getVersions();
     Assertions.assertThat(versions).isNotEmpty();
-    assertThat(versions.get(0).getVersion()).isEqualTo("2.11.1-rc1");
+    assertThat(versions.get(0).getNumber()).isEqualTo("2.11.1-rc1");
     assertThat(versions.get(0).getDate()).isEqualTo("2020-12-07T00:00:00.00Z");
-    assertThat(versions.get(1).getVersion()).isEqualTo("2.11.0");
+    assertThat(versions.get(1).getNumber()).isEqualTo("2.11.0");
     assertThat(versions.get(1).getDate()).isEqualTo("2020-12-04T00:00:00.00Z");
   }
 
@@ -128,9 +128,9 @@ public class ChangelogParserTest {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG_WITH_LINKS);
     List<Changelog.Version> versions = changelog.getVersions();
     Assertions.assertThat(versions).isNotEmpty();
-    assertThat(versions.get(0).getVersion()).isEqualTo("2.11.1-rc1");
+    assertThat(versions.get(0).getNumber()).isEqualTo("2.11.1-rc1");
     assertThat(versions.get(0).getDate()).isEqualTo("2020-12-07T00:00:00.00Z");
-    assertThat(versions.get(1).getVersion()).isEqualTo("2.11.0");
+    assertThat(versions.get(1).getNumber()).isEqualTo("2.11.0");
     assertThat(versions.get(1).getDate()).isEqualTo("2020-12-04T00:00:00.00Z");
   }
 
@@ -154,8 +154,8 @@ public class ChangelogParserTest {
     Map<String, List<Changelog.Change>> changes = versions.get(1).getChanges();
 
     Assertions.assertThat(changes.get("Added")).hasSize(8);
-    assertThat(changes.get("Added").get(0).getChange()).isEqualTo("Add tooltips to short links on repository overview ([#1441](https://github.com/scm-manager/scm-manager/pull/1441))");
-    assertThat(changes.get("Added").get(1).getChange()).isEqualTo("Show the date of the last commit for branches in the frontend ([#1439](https://github.com/scm-manager/scm-manager/pull/1439))");
+    assertThat(changes.get("Added").get(0).getValue()).isEqualTo("Add tooltips to short links on repository overview ([#1441](https://github.com/scm-manager/scm-manager/pull/1441))");
+    assertThat(changes.get("Added").get(1).getValue()).isEqualTo("Show the date of the last commit for branches in the frontend ([#1439](https://github.com/scm-manager/scm-manager/pull/1439))");
   }
 
   @Test
