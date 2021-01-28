@@ -1,4 +1,0 @@
-- type: fixed
-  description: Unexpected mercurial server pool stop
-- type: added
-  description: Copy on write
