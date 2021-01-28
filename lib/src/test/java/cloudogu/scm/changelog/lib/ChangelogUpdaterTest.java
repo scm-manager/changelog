@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,8 +31,8 @@ public class ChangelogUpdaterTest {
         new ChangelogUpdater(changelogFile, unreleasedChangelogEntriesResourceFile, "2.12.0", Instant.parse("2020-12-15T10:15:30.00Z"))
                 .update();
 
-        final String actualChangelog = Files.readString(changelogFile);
-        final String expectedChangelog = Files.readString(expectedChangelogResourceFile);
+        final String actualChangelog = readString(changelogFile);
+        final String expectedChangelog = readString(expectedChangelogResourceFile);
         assertThat(actualChangelog).isEqualTo(expectedChangelog);
     }
 
@@ -48,9 +49,13 @@ public class ChangelogUpdaterTest {
                 .withDownloadUrls("https://www.scm-manager.org/download/{0}")
                 .update();
 
-        final String actualChangelog = Files.readString(changelogFile);
-        final String expectedChangelog = Files.readString(expectedChangelogResourceFile);
+        final String actualChangelog = readString(changelogFile);
+        final String expectedChangelog = readString(expectedChangelogResourceFile);
         assertThat(actualChangelog).isEqualTo(expectedChangelog);
     }
+
+  private String readString(Path path) throws IOException {
+    return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+  }
 
 }
