@@ -6,16 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.12.0 - 2020-12-15
 ### Added
-- Copy on write
 - Set individual page title
+- Copy on write
 
 ### Fixed
-- Unexpected mercurial server pool stop
 - Failing git push does not lead to an GitAPIException
+- Unexpected mercurial server pool stop
 
 ### Changed
-- Stop fetching commits when it takes too long
 - Send mercurial hook callbacks over separate tcp socket instead of http ([#1416](https://github.com/scm-manager/scm-manager/pull/1416))
+- Stop fetching commits when it takes too long
 
 ## 2.11.1 - 2020-12-07
 ### Fixed
