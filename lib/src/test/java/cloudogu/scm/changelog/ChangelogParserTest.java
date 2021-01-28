@@ -25,7 +25,7 @@
 package cloudogu.scm.changelog;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -33,9 +33,9 @@ import java.util.Map;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ChangelogParserTest {
+class ChangelogParserTest {
 
-  public static final List<String> CHANGELOG = asList(
+  private static final List<String> CHANGELOG = asList(
     "# Changelog",
     "All notable changes to this project will be documented in this file.",
     "",
@@ -65,7 +65,7 @@ public class ChangelogParserTest {
     "- Language detection of files with interpreter parameters e.g.: `#!/usr/bin/make -f` ([#1450](https://github.com/scm-manager/scm-manager/issues/1450))"
   );
 
-  public static final List<String> CHANGELOG_WITH_LINKS = asList(
+  private static final List<String> CHANGELOG_WITH_LINKS = asList(
     "# Changelog",
     "All notable changes to this project will be documented in this file.",
     "",
@@ -99,7 +99,7 @@ public class ChangelogParserTest {
   );
 
   @Test
-  public void shouldParseHeader() {
+  void shouldParseHeader() {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG_WITH_LINKS);
 
     assertThat(changelog.getHeader()).containsExactly(
@@ -113,7 +113,7 @@ public class ChangelogParserTest {
   }
 
   @Test
-  public void shouldParseVersionHeader() {
+  void shouldParseVersionHeader() {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG);
     List<Changelog.Version> versions = changelog.getVersions();
     Assertions.assertThat(versions).isNotEmpty();
@@ -124,7 +124,7 @@ public class ChangelogParserTest {
   }
 
   @Test
-  public void shouldParseVersionHeaderWithLinks() {
+  void shouldParseVersionHeaderWithLinks() {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG_WITH_LINKS);
     List<Changelog.Version> versions = changelog.getVersions();
     Assertions.assertThat(versions).isNotEmpty();
@@ -135,7 +135,7 @@ public class ChangelogParserTest {
   }
 
   @Test
-  public void shouldParseChangeTypes() {
+  void shouldParseChangeTypes() {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG);
     List<Changelog.Version> versions = changelog.getVersions();
 
@@ -146,7 +146,7 @@ public class ChangelogParserTest {
   }
 
   @Test
-  public void shouldParseChanges() {
+  void shouldParseChanges() {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG);
     List<Changelog.Version> versions = changelog.getVersions();
 
@@ -159,7 +159,7 @@ public class ChangelogParserTest {
   }
 
   @Test
-  public void shouldParseLinks() {
+  void shouldParseLinks() {
     Changelog changelog = new ChangelogParser().parse(CHANGELOG_WITH_LINKS);
     List<Changelog.VersionLink> links = changelog.getLinks();
 

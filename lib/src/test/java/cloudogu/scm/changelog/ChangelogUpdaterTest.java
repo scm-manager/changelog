@@ -25,9 +25,8 @@
 package cloudogu.scm.changelog;
 
 import com.google.common.io.Resources;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -38,18 +37,15 @@ import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ChangelogUpdaterTest {
-
-  @Rule
-  public TemporaryFolder folder = new TemporaryFolder();
+class ChangelogUpdaterTest {
 
   @Test
-  public void shouldCreateCorrectChangelog() throws IOException {
+  void shouldCreateCorrectChangelog(@TempDir Path folder) throws IOException {
     final Path changelogResourceFile = Paths.get(Resources.getResource("changelog.md").getFile());
     final Path expectedChangelogResourceFile = Paths.get(Resources.getResource("expected_changelog.md").getFile());
     final Path unreleasedChangelogEntriesResourceFile = Paths.get(Resources.getResource("multiple").getFile());
 
-    final Path changelogFile = folder.getRoot().toPath().resolve("CHANGELOG.md");
+    final Path changelogFile = folder.resolve("CHANGELOG.md");
     Files.copy(changelogResourceFile, changelogFile);
 
     new ChangelogUpdater(changelogFile, unreleasedChangelogEntriesResourceFile, "2.12.0", Instant.parse("2020-12-15T10:15:30.00Z"))
@@ -61,12 +57,12 @@ public class ChangelogUpdaterTest {
   }
 
   @Test
-  public void shouldCreateCorrectChangelogWithLinks() throws IOException {
+  void shouldCreateCorrectChangelogWithLinks(@TempDir Path folder) throws IOException {
     final Path changelogResourceFile = Paths.get(Resources.getResource("changelog_with_links.md").getFile());
     final Path expectedChangelogResourceFile = Paths.get(Resources.getResource("expected_changelog_with_links.md").getFile());
     final Path unreleasedChangelogEntriesResourceFile = Paths.get(Resources.getResource("multiple").getFile());
 
-    final Path changelogFile = folder.getRoot().toPath().resolve("CHANGELOG.md");
+    final Path changelogFile = folder.resolve("CHANGELOG.md");
     Files.copy(changelogResourceFile, changelogFile);
 
     new ChangelogUpdater(changelogFile, unreleasedChangelogEntriesResourceFile, "2.12.0", Instant.parse("2020-12-15T10:15:30.00Z"))
