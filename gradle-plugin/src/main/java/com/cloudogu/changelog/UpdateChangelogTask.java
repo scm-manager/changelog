@@ -67,7 +67,7 @@ public class UpdateChangelogTask extends DefaultTask {
   }
 
   @Input
-  @Option(option = "version", description = "Version number for the changelog update")
+  @Option(option = "release", description = "Version number of the release for changelog update")
   public Property<String> getVersion() {
     return version;
   }

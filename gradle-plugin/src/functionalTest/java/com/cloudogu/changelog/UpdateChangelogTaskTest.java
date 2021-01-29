@@ -86,7 +86,7 @@ class UpdateChangelogTaskTest {
     GradleRunner.create()
       .withProjectDir(directory.toFile())
       .withPluginClasspath()
-      .withArguments(TASK, "--version=3.0.0")
+      .withArguments(TASK, "--release=3.0.0")
       .build();
 
     String content = changelog.read();
@@ -122,7 +122,7 @@ class UpdateChangelogTaskTest {
     GradleRunner.create()
       .withProjectDir(directory.toFile())
       .withPluginClasspath()
-      .withArguments(TASK, "--version=1.0.1")
+      .withArguments(TASK, "--release=1.0.1")
       .build();
 
     String content = changelog.read();
