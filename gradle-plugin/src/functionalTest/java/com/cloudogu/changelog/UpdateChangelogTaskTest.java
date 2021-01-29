@@ -41,7 +41,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SuppressWarnings("java:S5960") // functionTest are not production code
+@SuppressWarnings("java:S5960")
 class UpdateChangelogTaskTest {
 
   private static final String TASK = "updateChangelog";
@@ -68,7 +68,7 @@ class UpdateChangelogTaskTest {
       "changelog {",
       "  file = file('logOfChanges.md')",
       "  directory = file('changes')",
-      "  downloadUrlPattern = 'https://scm-manager.org/download/{0}'",
+      "  versionUrlPattern = 'https://scm-manager.org/download/{0}'",
       "}"
     ).create().read();
     file(directory, "changes", "delete-all.yml").content(
@@ -77,7 +77,7 @@ class UpdateChangelogTaskTest {
     ).create();
     File changelog = changelog(directory, "logOfChanges.md").content(
       "## [2.0.0] - 2020-12-07",
-      "### Added",
+      "### added",
       "- All",
       "",
       "[2.0.0]: https://scm-manager.org/download/2.0.0"

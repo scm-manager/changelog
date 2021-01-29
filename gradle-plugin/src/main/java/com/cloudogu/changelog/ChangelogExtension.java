@@ -37,7 +37,7 @@ public class ChangelogExtension {
 
   private final RegularFileProperty file;
   private final DirectoryProperty directory;
-  private final Property<String> downloadUrlPattern;
+  private final Property<String> versionUrlPattern;
 
   @Inject
   @SuppressWarnings("UnstableApiUsage")
@@ -45,7 +45,7 @@ public class ChangelogExtension {
     Directory projectDirectory = layout.getProjectDirectory();
     this.file = objectFactory.fileProperty().convention(projectDirectory.file("CHANGELOG.md"));
     this.directory = objectFactory.directoryProperty().convention(projectDirectory.dir("gradle/changelog"));
-    this.downloadUrlPattern = objectFactory.property(String.class);
+    this.versionUrlPattern = objectFactory.property(String.class);
   }
 
   public DirectoryProperty getDirectory() {
@@ -56,7 +56,7 @@ public class ChangelogExtension {
     return file;
   }
 
-  public Property<String> getDownloadUrlPattern() {
-    return downloadUrlPattern;
+  public Property<String> getVersionUrlPattern() {
+    return versionUrlPattern;
   }
 }

@@ -66,7 +66,7 @@ class ChangelogUpdaterTest {
     Files.copy(changelogResourceFile, changelogFile);
 
     new ChangelogUpdater(changelogFile, unreleasedChangelogEntriesResourceFile, "2.12.0", Instant.parse("2020-12-15T10:15:30.00Z"))
-      .withDownloadUrls("https://www.scm-manager.org/download/{0}")
+      .withVersionUrls("https://www.scm-manager.org/download/{0}")
       .update();
 
     final String actualChangelog = readString(changelogFile);

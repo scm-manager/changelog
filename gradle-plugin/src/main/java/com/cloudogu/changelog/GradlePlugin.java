@@ -34,7 +34,7 @@ public class GradlePlugin implements Plugin<Project> {
     project.getTasks().register(UpdateChangelogTask.NAME, UpdateChangelogTask.class).configure(task -> {
       task.getFile().set(extension.getFile());
       task.getDirectory().set(extension.getDirectory());
-      task.getDownloadUrlPattern().set(extension.getDownloadUrlPattern());
+      task.getVersionUrlPattern().set(extension.getVersionUrlPattern());
     });
   }
 }

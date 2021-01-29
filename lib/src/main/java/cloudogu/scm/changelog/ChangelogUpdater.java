@@ -43,7 +43,7 @@ public final class ChangelogUpdater {
   private final Path changelogsDirectory;
   private final String version;
   private final Instant date;
-  private String downloadUrlPattern;
+  private String versionUrlPattern;
 
   public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, String version) {
     this(changelogFile, changelogsDirectory, version, Instant.now());
@@ -69,7 +69,7 @@ public final class ChangelogUpdater {
       oldChangelog.getVersions().forEach(v -> writeVersion(v, out));
       oldChangelog.getLinks().forEach(link -> link.write(out));
       if (shouldWriteLinks()) {
-        new Changelog.VersionLink(version, MessageFormat.format(downloadUrlPattern, version)).write(out);
+        new Changelog.VersionLink(version, MessageFormat.format(versionUrlPattern, version)).write(out);
       }
     }
   }
@@ -83,11 +83,11 @@ public final class ChangelogUpdater {
   }
 
   private boolean shouldWriteLinks() {
-    return downloadUrlPattern != null;
+    return versionUrlPattern != null && !versionUrlPattern.trim().isEmpty();
   }
 
-  public ChangelogUpdater withDownloadUrls(String downloadUrlPattern) {
-    this.downloadUrlPattern = downloadUrlPattern;
+  public ChangelogUpdater withVersionUrls(String versionUrlPattern) {
+    this.versionUrlPattern = versionUrlPattern;
     return this;
   }
 

@@ -47,7 +47,7 @@ public class UpdateChangelogTask extends DefaultTask {
   private final RegularFileProperty file = getProject().getObjects().fileProperty();
   @SuppressWarnings("UnstableApiUsage")
   private final DirectoryProperty directory = getProject().getObjects().directoryProperty();
-  private final Property<String> downloadUrlPattern = getProject().getObjects().property(String.class);
+  private final Property<String> versionUrlPattern = getProject().getObjects().property(String.class);
   private final Property<String> version = getProject().getObjects().property(String.class);
 
   @OutputFile
@@ -62,8 +62,8 @@ public class UpdateChangelogTask extends DefaultTask {
 
   @Input
   @Optional
-  public Property<String> getDownloadUrlPattern() {
-    return downloadUrlPattern;
+  public Property<String> getVersionUrlPattern() {
+    return versionUrlPattern;
   }
 
   @Input
@@ -80,8 +80,8 @@ public class UpdateChangelogTask extends DefaultTask {
       version.get(),
       Instant.now()
     );
-    if (downloadUrlPattern.isPresent()) {
-      updater.withDownloadUrls(downloadUrlPattern.get());
+    if (versionUrlPattern.isPresent()) {
+      updater.withVersionUrls(versionUrlPattern.get());
     }
     updater.update();
   }
