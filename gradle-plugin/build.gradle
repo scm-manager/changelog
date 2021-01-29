@@ -35,11 +35,6 @@ dependencies {
   implementation project(":lib")
 }
 
-jar {
-  enabled = false
-  dependsOn(shadowJar { archiveClassifier = null })
-}
-
 gradlePlugin {
   // Define the plugin
   plugins {
@@ -86,4 +81,10 @@ check {
 
 tasks.getByName("publish").configure {
   dependsOn "publishPlugins"
+}
+
+configurations.archives.artifacts.clear()
+
+artifacts {
+  add("archives", shadowJar)
 }
