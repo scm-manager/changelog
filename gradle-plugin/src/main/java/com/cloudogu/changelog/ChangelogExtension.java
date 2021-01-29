@@ -22,49 +22,41 @@
  * SOFTWARE.
  */
 
-plugins {
-  id 'java-library'
-  id 'maven-publish'
-  id 'idea'
-}
+package com.cloudogu.changelog;
 
-idea {
-  module {
-    downloadJavadoc = true
-    downloadSources = true
+import org.gradle.api.file.Directory;
+import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.ProjectLayout;
+import org.gradle.api.file.RegularFileProperty;
+import org.gradle.api.model.ObjectFactory;
+import org.gradle.api.provider.Property;
+
+import javax.inject.Inject;
+
+public class ChangelogExtension {
+
+  private final RegularFileProperty file;
+  private final DirectoryProperty directory;
+  private final Property<String> downloadUrlPattern;
+
+  @Inject
+  @SuppressWarnings("UnstableApiUsage")
+  public ChangelogExtension(ProjectLayout layout, ObjectFactory objectFactory) {
+    Directory projectDirectory = layout.getProjectDirectory();
+    this.file = objectFactory.fileProperty().convention(projectDirectory.file("CHANGELOG.md"));
+    this.directory = objectFactory.directoryProperty().convention(projectDirectory.dir("gradle/changelog"));
+    this.downloadUrlPattern = objectFactory.property(String.class);
   }
-}
 
-repositories {
-  mavenLocal()
-  maven {
-    url = uri('https://packages.scm-manager.org/repository/public/')
+  public DirectoryProperty getDirectory() {
+    return directory;
   }
-}
 
-dependencies {
-  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-  testImplementation 'org.assertj:assertj-core:3.11.1'
-}
-
-group = 'cloudogu.scm'
-version = '1.0.0-SNAPSHOT'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-
-publishing {
-  publications {
-    maven(MavenPublication) {
-      from(components.java)
-    }
+  public RegularFileProperty getFile() {
+    return file;
   }
-}
 
-tasks.withType(JavaCompile) {
-  options.encoding = 'UTF-8'
-}
-
-test {
-  useJUnitPlatform {
+  public Property<String> getDownloadUrlPattern() {
+    return downloadUrlPattern;
   }
 }

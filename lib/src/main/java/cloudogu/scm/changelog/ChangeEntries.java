@@ -40,7 +40,7 @@ import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 
-public class ChangeEntries {
+class ChangeEntries {
 
   private static final Yaml YAML = new Yaml(new CustomClassLoaderConstructor(ChangelogEntry.class.getClassLoader()));
   private static final List<String> TYPE_ORDER = asList("added", "fixed", "changed");

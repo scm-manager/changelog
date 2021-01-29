@@ -24,3 +24,4 @@
 
 rootProject.name = 'changelog'
 include(':lib')
+include(':gradle-plugin')
