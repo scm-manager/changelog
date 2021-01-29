@@ -11,25 +11,25 @@ This repository contains a library and a [Gradle](https://gradle.org/) plugin to
 
 ## SCM-Manager changelog flow
 
-At SCM-Manager we use a changelog in the [keep a changelog](https://keepachangelog.com/en/1.0.0/) format at the root of 
+At SCM-Manager we log changes in the [keep a changelog](https://keepachangelog.com/en/1.0.0/) format at the root of 
 our projects (e.g.: [SCM-Manager](https://github.com/scm-manager/scm-manager/blob/develop/CHANGELOG.md)).
-This kind of nice for the reader, because it contains all information to every release in on file.
+This format is nice for the reader, because it contains all information for every release in a single file.
 
 
-But it is hard to maintain, because one file for all changes leads often to merge conflicts.
+But it is hard to maintain, because one file for all changes often leads to merge conflicts.
 We are working with git flow and using branches for each feature or bugfix.
 Each of these branches changes the changelog to reflect the changes for the release.
-If a feature is ready it will be merged in to the develop branch and 
-this merge leads nearly every time to a merge conflict.
+If a feature is ready it will be merged into the develop branch and 
+nearly every time this merge leads to a merge conflict.
 
 
 To avoid these conflicts and error prone manual merges, we have searched for a solution for this problem.
-Luckily we are not the only one with this problem, 
-the guys from [GitLab are faced with the same problem](https://about.gitlab.com/blog/2018/07/03/solving-gitlabs-changelog-conflict-crisis/).
+Luckily we are not the only one with this problem.
+The guys from [GitLab had encountered the same problem](https://about.gitlab.com/blog/2018/07/03/solving-gitlabs-changelog-conflict-crisis/).
 So we decided to use the same flow.
 
 
-Instead of changing a single markdown file, we are creating yaml files in a directory one for each feature or bugfix e.g.:
+Instead of changing a single markdown file, we are creating yaml files in a directory, one for each feature or bugfix e.g.:
 
 ```yaml
 - type: added
@@ -38,15 +38,15 @@ Instead of changing a single markdown file, we are creating yaml files in a dire
   description: Not so awesome feature
 ```
 
-When we prepare a release, we take all those changelog entry files and write them into the changelog file.
+When we prepare a release, we take all these changelog entry files and write them into the changelog file.
 In order to support this approach, 
-we build a gradle plugin which does the merge of the entries files with the changelog for us.
+we build a gradle plugin which does the merge of the entry files with the changelog for us.
 
 ## Gradle Plugin
 
 ### Installation
 
-To install the plugin just add the following snippet to your build.gradle file.
+To install the plugin, just add the following snippet to your `build.gradle` file.
 
 ```groovy
 plugins {
