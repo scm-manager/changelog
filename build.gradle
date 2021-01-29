@@ -23,6 +23,10 @@
  */
 import org.gradle.util.VersionNumber
 
+plugins {
+  id 'org.cadixdev.licenser' version '0.5.0'
+}
+
 task setVersion {
   doLast {
     if (!project.hasProperty('newVersion')) {
