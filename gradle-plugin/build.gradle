@@ -83,6 +83,14 @@ tasks.getByName("publish").configure {
   dependsOn "publishPlugins"
 }
 
+jar {
+  enabled = false
+}
+
+shadowJar {
+  archiveClassifier = null
+}
+
 configurations.archives.artifacts.clear()
 
 artifacts {
