@@ -47,7 +47,6 @@ pipeline {
     stage('Build') {
       steps {
         sh './gradlew build'
-        archiveArtifacts artifacts: 'build/libs/*.jar'
       }
     }
 
