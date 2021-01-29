@@ -1,0 +1,2 @@
+- Failing git push does not lead to an GitAPIException
+- Unexpected mercurial server pool stop

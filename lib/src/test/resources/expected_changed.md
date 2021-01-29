@@ -1,0 +1,2 @@
+- Send mercurial hook callbacks over separate tcp socket instead of http ([#1416](https://github.com/scm-manager/scm-manager/pull/1416))
+- Stop fetching commits when it takes too long
