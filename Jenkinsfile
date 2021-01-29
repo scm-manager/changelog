@@ -56,10 +56,9 @@ pipeline {
       }
       steps {
         withCredentials([
-          usernamePassword(credentialsId: 'plugins.gradle.org-scm-team', passwordVariable: 'GRADLE_SECRET', usernameVariable: 'GRADLE_KEY'),
-          usernamePassword(credentialsId: 'maven.scm-manager.org', usernameVariable: 'ORG_GRADLE_PROJECT_packagesScmManagerUsername', passwordVariable: 'ORG_GRADLE_PROJECT_packagesScmManagerPassword'),
+          usernamePassword(credentialsId: 'plugins.gradle.org-scm-team', passwordVariable: 'GRADLE_SECRET', usernameVariable: 'GRADLE_KEY')
         ]) {
-          sh "./gradlew publish -Dgradle.publish.key=\${GRADLE_KEY} -Dgradle.publish.secret=\${GRADLE_SECRET}"
+          sh "./gradlew publishPlugins -Dgradle.publish.key=\${GRADLE_KEY} -Dgradle.publish.secret=\${GRADLE_SECRET}"
         }
       }
     }
