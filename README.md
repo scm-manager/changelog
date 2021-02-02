@@ -42,6 +42,38 @@ When we prepare a release, we take all these changelog entry files and write the
 In order to support this approach, 
 we build a gradle plugin which does the merge of the entry files with the changelog for us.
 
+## Changelog entry files
+
+The name of the files should reflect the changes in a few words separated by underscores.
+In the most cases the name could be the name of the feature/bugfix branch without the type prefix e.g.:
+
+* `new_changelog_process.yaml`
+* `delete_branch_permissions.yaml`
+
+A changelog entry file can consist of several changes.
+Each change must have a type and a description.
+
+The type must be one of the following types:
+
+* `added` - for new features
+* `changed` - for changes in existing functionality
+* `deprecated` - for soon-to-be removed features
+* `removed` - for now removed features
+* `fixed` - for any bug fixes
+* `security` - in case of vulnerabilities
+
+The description should describe the change in one sentence.
+It can be written in markdown and should contain links to issues and pull requests.
+
+### Examples
+
+```yaml
+- type: changed
+  description: Implement new changelog process ([#1517](https://github.com/scm-manager/scm-manager/issues/1517))
+- type: fixed
+  description: Fix permission check for branch deletion ([#1515](https://github.com/scm-manager/scm-manager/pull/1515))
+```
+
 ## Gradle Plugin
 
 ### Installation
