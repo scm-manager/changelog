@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 
 
 plugins {
@@ -87,12 +88,41 @@ jar {
   enabled = false
 }
 
+// merge all dependencies into the plugin jar
+
 shadowJar {
   archiveClassifier = null
 }
 
+// https://imperceptiblethoughts.com/shadow/plugins/#special-handling-of-the-java-gradle-plugin-development-plugin
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+  target = tasks.shadowJar
+}
+
+configurations.compile.dependencies.remove dependencies.gradleApi()
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
+
+// remove all existing artifacts from publishing
+
 configurations.archives.artifacts.clear()
+
+// add shadow jar to list of deployed artifacts
 
 artifacts {
   add("archives", shadowJar)
 }
+
+// remove all dependencies from publishing
+
+afterEvaluate {
+  tasks.generatePomFileForPluginMavenPublication {
+    pom.withXml {
+      asNode().dependencies.dependency.each { dep ->
+        assert dep.parent().remove(dep)
+      }
+    }
+  }
+}
+
+
