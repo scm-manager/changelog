@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -43,7 +44,7 @@ import static java.util.Arrays.asList;
 class ChangeEntries {
 
   private static final Yaml YAML = new Yaml(new CustomClassLoaderConstructor(ChangelogEntry.class.getClassLoader()));
-  private static final List<String> TYPE_ORDER = asList("added", "fixed", "changed");
+  private static final List<String> TYPE_ORDER = asList("Added", "Fixed", "Changed");
 
   Map<String, List<Changelog.Change>> from(Path path) {
     List<ChangelogEntry> entries = getEntries(path);
@@ -106,8 +107,13 @@ class ChangeEntries {
     private final String description;
 
     public ChangelogEntry(String type, String description) {
-      this.type = type;
+      this.type = normalize(type);
       this.description = description;
+    }
+
+    private String normalize(String type) {
+      return type.substring(0, 1).toUpperCase(Locale.ENGLISH)
+        + type.toLowerCase(Locale.ENGLISH).substring(1);
     }
 
     public String getType() {

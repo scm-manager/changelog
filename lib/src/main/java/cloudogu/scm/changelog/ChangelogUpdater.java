@@ -24,9 +24,6 @@
 
 package cloudogu.scm.changelog;
 
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -38,7 +35,6 @@ import java.util.Map;
 
 public final class ChangelogUpdater {
 
-  private static final Yaml yaml = new Yaml(new CustomClassLoaderConstructor(ChangelogEntryDao.class.getClassLoader()));
   private final Path changelogFile;
   private final Path changelogsDirectory;
   private final String version;
@@ -89,24 +85,6 @@ public final class ChangelogUpdater {
   public ChangelogUpdater withVersionUrls(String versionUrlPattern) {
     this.versionUrlPattern = versionUrlPattern;
     return this;
-  }
-
-  static class ChangelogEntryDao {
-    private final String type;
-    private final String description;
-
-    public ChangelogEntryDao(String type, String description) {
-      this.type = type;
-      this.description = description;
-    }
-
-    public String getType() {
-      return type;
-    }
-
-    public String getDescription() {
-      return description;
-    }
   }
 
 }

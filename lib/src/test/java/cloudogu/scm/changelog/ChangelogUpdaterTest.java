@@ -24,6 +24,7 @@
 
 package cloudogu.scm.changelog;
 
+import com.google.common.base.Joiner;
 import com.google.common.io.Resources;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -43,11 +44,11 @@ class ChangelogUpdaterTest {
   private Path changelogFile;
   private ChangelogUpdater updater;
 
-  private void prepare(Path folder, String changelogFilename) throws IOException {
-    Path changelogSource = resource(changelogFilename);
+  private void prepare(Path folder, String source, String target) throws IOException {
+    Path changelogSource = resource(target);
 
-    source = Files.readAllLines(changelogSource);
-    Path changelogEntriesDirectory = resource("multiple");
+    this.source = Files.readAllLines(changelogSource);
+    Path changelogEntriesDirectory = resource(source);
 
     changelogFile = folder.resolve("CHANGELOG.md");
     Files.copy(changelogSource, changelogFile);
@@ -62,7 +63,7 @@ class ChangelogUpdaterTest {
 
   @Test
   void shouldCreateCorrectChangelog(@TempDir Path folder) throws IOException {
-    prepare(folder, "changelog.md");
+    prepare(folder, "multiple", "changelog.md");
     updater.update();
 
     List<String> changelog = Files.readAllLines(changelogFile);
@@ -80,8 +81,26 @@ class ChangelogUpdaterTest {
   }
 
   @Test
+  void shouldNormalizeMixedCase(@TempDir Path folder) throws IOException {
+    prepare(folder, "mixedcase", "changelog.md");
+    updater.update();
+
+    List<String> changelog = Files.readAllLines(changelogFile);
+    System.out.println(Joiner.on("\n").join(changelog));
+    assertThat(changelog)
+      // ensure types are in the right order
+      .containsSubsequence("### Added", "### Changed", "### Fixed")
+      .doesNotContain("### added", "### changed", "### fixed")
+      .doesNotContain("### ADDED", "### CHANGED", "### FIXED")
+      // contains all features
+      .containsAll(lines("expected_added.md"))
+      .containsAll(lines("expected_changed.md"))
+      .containsAll(lines("expected_fixed.md"));
+  }
+
+  @Test
   void shouldCreateCorrectChangelogWithLinks(@TempDir Path folder) throws IOException {
-    prepare(folder, "changelog_with_links.md");
+    prepare(folder, "multiple", "changelog_with_links.md");
     updater
       .withVersionUrls("https://www.scm-manager.org/download/{0}")
       .update();
