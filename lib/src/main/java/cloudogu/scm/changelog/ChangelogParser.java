@@ -41,10 +41,10 @@ import static cloudogu.scm.changelog.Changelog.DATE_FORMAT;
 
 public class ChangelogParser {
 
-  private static final Pattern VERSION_PATTERN = Pattern.compile("##\\W+\\[?([0-9.]+(?:-[^]\\W]*)?)]? - (....-..-..)");
-  private static final Pattern TYPE_PATTERN = Pattern.compile("###\\W+(.*)");
-  private static final Pattern CHANGE_PATTERN = Pattern.compile("-\\W+(.*)");
-  private static final Pattern LINK_PATTERN = Pattern.compile("\\[([0-9.]+(?:-.*)?)]:\\W+(.+)");
+  private static final Pattern VERSION_PATTERN = Pattern.compile("##\\s+\\[?([0-9.]+(?:-[^]\\s]*)?)]? - (....-..-..)");
+  private static final Pattern TYPE_PATTERN = Pattern.compile("###\\s+(.*)");
+  private static final Pattern CHANGE_PATTERN = Pattern.compile("-\\s+(.*)");
+  private static final Pattern LINK_PATTERN = Pattern.compile("\\[([0-9.]+(?:-.*)?)]:\\s+(.+)");
 
   public Changelog parse(Path changelogFile) {
     List<String> lines = readChangelogFile(changelogFile);
