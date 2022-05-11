@@ -32,6 +32,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Collections.emptyMap;
+
 public class Changelog {
 
   static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("uuuu-MM-dd").withZone(ZoneOffset.UTC);
@@ -82,7 +84,7 @@ public class Changelog {
     public Version(String number, Instant date, Map<String, List<Change>> changes) {
       this.number = number;
       this.date = date;
-      this.changes = changes;
+      this.changes = changes == null ? emptyMap() : changes;
     }
 
     public String getNumber() {
