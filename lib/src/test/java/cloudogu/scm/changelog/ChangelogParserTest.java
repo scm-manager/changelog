@@ -65,6 +65,25 @@ class ChangelogParserTest {
     "- Language detection of files with interpreter parameters e.g.: `#!/usr/bin/make -f` ([#1450](https://github.com/scm-manager/scm-manager/issues/1450))"
   );
 
+  private static final List<String> CHANGELOG_WITH_EMPTY_VERSION = asList(
+    "# Changelog",
+    "All notable changes to this project will be documented in this file.",
+    "",
+    "The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),",
+    "and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).",
+    "",
+    "## 2.11.2 - 2020-12-07 ",
+    "### Fixed",
+    "- Initialization of new git repository with master set as default branch ([#1467](https://github.com/scm-manager/scm-manager/issues/1467) and [#1470](https://github.com/scm-manager/scm-manager/pull/1470))",
+    "",
+    "## 2.11.1 - 2020-12-05",
+    "",
+    "## 2.11.0 - 2020-12-04",
+    "",
+    "###  Added ",
+    "- Language detection of files with interpreter parameters e.g.: `#!/usr/bin/make -f` ([#1450](https://github.com/scm-manager/scm-manager/issues/1450))"
+  );
+
   private static final List<String> CHANGELOG_WITH_LINKS = asList(
     "# Changelog",
     "All notable changes to this project will be documented in this file.",
@@ -121,6 +140,15 @@ class ChangelogParserTest {
     assertThat(versions.get(0).getDate()).isEqualTo("2020-12-07T00:00:00.00Z");
     assertThat(versions.get(1).getNumber()).isEqualTo("2.11.0");
     assertThat(versions.get(1).getDate()).isEqualTo("2020-12-04T00:00:00.00Z");
+  }
+
+  @Test
+  void shouldParseVersionWithoutChanges() {
+    Changelog changelog = new ChangelogParser().parse(CHANGELOG_WITH_EMPTY_VERSION);
+    List<Changelog.Version> versions = changelog.getVersions();
+    Assertions.assertThat(versions).isNotEmpty();
+    assertThat(versions.get(1).getNumber()).isEqualTo("2.11.1");
+    assertThat(versions.get(1).getChanges()).isEmpty();
   }
 
   @Test
