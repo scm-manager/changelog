@@ -24,6 +24,8 @@
 
 package cloudogu.scm.changelog;
 
+import com.google.common.base.Strings;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -57,8 +59,9 @@ public final class ChangelogUpdater {
     if (newEntries.isEmpty()) {
       return;
     }
-    Changelog.Version newVersion = new Changelog.Version(version, date, newEntries);
     Changelog oldChangelog = new ChangelogParser().parse(changelogFile);
+    String nextVersionNumber = determineNextVersionNumber(newEntries, oldChangelog);
+    Changelog.Version newVersion = new Changelog.Version(nextVersionNumber, date, newEntries);
     try (PrintWriter out = new PrintWriter(Files.newBufferedWriter(changelogFile))) {
       oldChangelog.getHeader().forEach(out::println);
       writeVersion(newVersion, out);
@@ -67,6 +70,16 @@ public final class ChangelogUpdater {
       if (shouldWriteLinks()) {
         new Changelog.VersionLink(version, MessageFormat.format(versionUrlPattern, version)).write(out);
       }
+    }
+  }
+
+  private String determineNextVersionNumber(Map<String, List<Changelog.Change>> newEntries, Changelog oldChangelog) {
+    if (Strings.isNullOrEmpty(version)) {
+      String nextVersionNumber = new VersionComputer().computeNextVersionNumber(newEntries, oldChangelog);
+      System.out.println("Using next version " + nextVersionNumber);
+      return nextVersionNumber;
+    } else {
+      return version;
     }
   }
 
