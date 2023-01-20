@@ -68,6 +68,7 @@ public class UpdateChangelogTask extends DefaultTask {
 
   @Input
   @Option(option = "release", description = "Version number of the release for changelog update")
+  @Optional
   public Property<String> getVersion() {
     return version;
   }
@@ -77,9 +78,11 @@ public class UpdateChangelogTask extends DefaultTask {
     ChangelogUpdater updater = new ChangelogUpdater(
       file.getAsFile().get().toPath(),
       directory.get().getAsFile().toPath(),
-      version.get(),
       Instant.now()
     );
+    if (version.isPresent()) {
+      updater.withVersion(version.get());
+    }
     if (versionUrlPattern.isPresent()) {
       updater.withVersionUrls(versionUrlPattern.get());
     }

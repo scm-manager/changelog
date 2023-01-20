@@ -39,18 +39,17 @@ public final class ChangelogUpdater {
 
   private final Path changelogFile;
   private final Path changelogsDirectory;
-  private final String version;
   private final Instant date;
   private String versionUrlPattern;
+  private String version;
 
-  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, String version) {
-    this(changelogFile, changelogsDirectory, version, Instant.now());
+  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory) {
+    this(changelogFile, changelogsDirectory, Instant.now());
   }
 
-  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, String version, Instant date) {
+  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, Instant date) {
     this.changelogFile = changelogFile;
     this.changelogsDirectory = changelogsDirectory;
-    this.version = version;
     this.date = date;
   }
 
@@ -68,7 +67,7 @@ public final class ChangelogUpdater {
       oldChangelog.getVersions().forEach(v -> writeVersion(v, out));
       oldChangelog.getLinks().forEach(link -> link.write(out));
       if (shouldWriteLinks()) {
-        new Changelog.VersionLink(version, MessageFormat.format(versionUrlPattern, version)).write(out);
+        new Changelog.VersionLink(nextVersionNumber, MessageFormat.format(versionUrlPattern, nextVersionNumber)).write(out);
       }
     }
   }
@@ -100,4 +99,8 @@ public final class ChangelogUpdater {
     return this;
   }
 
+  public ChangelogUpdater withVersion(String version) {
+    this.version = version;
+    return this;
+  }
 }
