@@ -24,6 +24,8 @@
 
 package cloudogu.scm.changelog;
 
+import com.google.common.base.Strings;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -37,18 +39,17 @@ public final class ChangelogUpdater {
 
   private final Path changelogFile;
   private final Path changelogsDirectory;
-  private final String version;
   private final Instant date;
   private String versionUrlPattern;
+  private String version;
 
-  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, String version) {
-    this(changelogFile, changelogsDirectory, version, Instant.now());
+  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory) {
+    this(changelogFile, changelogsDirectory, Instant.now());
   }
 
-  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, String version, Instant date) {
+  public ChangelogUpdater(Path changelogFile, Path changelogsDirectory, Instant date) {
     this.changelogFile = changelogFile;
     this.changelogsDirectory = changelogsDirectory;
-    this.version = version;
     this.date = date;
   }
 
@@ -57,16 +58,27 @@ public final class ChangelogUpdater {
     if (newEntries.isEmpty()) {
       return;
     }
-    Changelog.Version newVersion = new Changelog.Version(version, date, newEntries);
     Changelog oldChangelog = new ChangelogParser().parse(changelogFile);
+    String nextVersionNumber = determineNextVersionNumber(newEntries, oldChangelog);
+    Changelog.Version newVersion = new Changelog.Version(nextVersionNumber, date, newEntries);
     try (PrintWriter out = new PrintWriter(Files.newBufferedWriter(changelogFile))) {
       oldChangelog.getHeader().forEach(out::println);
       writeVersion(newVersion, out);
       oldChangelog.getVersions().forEach(v -> writeVersion(v, out));
       oldChangelog.getLinks().forEach(link -> link.write(out));
       if (shouldWriteLinks()) {
-        new Changelog.VersionLink(version, MessageFormat.format(versionUrlPattern, version)).write(out);
+        new Changelog.VersionLink(nextVersionNumber, MessageFormat.format(versionUrlPattern, nextVersionNumber)).write(out);
       }
+    }
+  }
+
+  private String determineNextVersionNumber(Map<String, List<Changelog.Change>> newEntries, Changelog oldChangelog) {
+    if (Strings.isNullOrEmpty(version)) {
+      String nextVersionNumber = new VersionComputer().computeNextVersionNumber(newEntries, oldChangelog);
+      System.out.println("Using next version " + nextVersionNumber);
+      return nextVersionNumber;
+    } else {
+      return version;
     }
   }
 
@@ -87,4 +99,8 @@ public final class ChangelogUpdater {
     return this;
   }
 
+  public ChangelogUpdater withVersion(String version) {
+    this.version = version;
+    return this;
+  }
 }

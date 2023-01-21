@@ -56,9 +56,8 @@ class ChangelogUpdaterTest {
     updater = new ChangelogUpdater(
       changelogFile,
       changelogEntriesDirectory,
-      "2.12.0",
       Instant.parse("2020-12-15T10:15:30.00Z")
-    );
+    ).withVersion("2.12.0");
   }
 
   @Test

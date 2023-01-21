@@ -43,8 +43,12 @@ import static java.util.Arrays.asList;
 
 class ChangeEntries {
 
+  public static final String ADDED = "Added";
+  public static final String FIXED = "Fixed";
+  public static final String CHANGED = "Changed";
+
   private static final Yaml YAML = new Yaml(new CustomClassLoaderConstructor(ChangelogEntry.class.getClassLoader()));
-  private static final List<String> TYPE_ORDER = asList("Added", "Fixed", "Changed");
+  private static final List<String> TYPE_ORDER = asList(ADDED, FIXED, CHANGED);
 
   Map<String, List<Changelog.Change>> from(Path path) {
     List<ChangelogEntry> entries = getEntries(path);

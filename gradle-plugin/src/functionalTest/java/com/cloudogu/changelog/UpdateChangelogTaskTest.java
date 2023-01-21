@@ -47,21 +47,6 @@ class UpdateChangelogTaskTest {
   private static final String TASK = "updateChangelog";
 
   @Test
-  void shouldFailWithoutVersion(@TempDir Path directory) throws IOException {
-    settings(directory).create();
-    buildDotGradle(directory).create();
-
-    BuildResult result = GradleRunner.create()
-      .withProjectDir(directory.toFile())
-      .withPluginClasspath()
-      .withArguments(TASK)
-      .buildAndFail();
-
-    assertThat(result.getOutput())
-      .contains("No value has been specified for property 'version'");
-  }
-
-  @Test
   void shouldUpdateChangelogWithConfiguration(@TempDir Path directory) throws IOException {
     settings(directory).create();
     buildDotGradle(directory).content(
@@ -131,6 +116,39 @@ class UpdateChangelogTaskTest {
       .contains("### Fixed")
       .contains("- Feature b")
       .contains("### Changed")
+      .contains("- Feature b");
+  }
+
+  @Test
+  void shouldDetermineNextVersionNumber(@TempDir Path directory) throws IOException {
+    settings(directory).create();
+    buildDotGradle(directory).create();
+    file(directory, "gradle", "changelog", "001.yml").content(
+      "- type: fixed",
+      "  description: Feature a"
+    ).create();
+    file(directory, "gradle", "changelog", "002.yml").content(
+      "- type: changed",
+      "  description: Feature b"
+    ).create();
+    File changelog = changelog(directory, "CHANGELOG.md").content(
+      "## 1.0.0 - 2020-12-07",
+      "### Added",
+      "- Awesome feature"
+    ).create();
+
+    GradleRunner.create()
+      .withProjectDir(directory.toFile())
+      .withPluginClasspath()
+      .withArguments(TASK)
+      .build();
+
+    String content = changelog.read();
+    assertThat(content)
+      .contains("## 1.1.0")
+      .contains("### Fixed")
+      .contains("- Feature b")
+      .contains("### Fixed")
       .contains("- Feature b");
   }
 
