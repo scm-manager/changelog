@@ -18,11 +18,11 @@ plugins {
   id 'java-library'
   id 'maven-publish'
   id 'idea'
-  id 'org.cadixdev.licenser'
+  id 'org.scm-manager.license'
 }
 
 license {
-  header = project.rootProject.file('LICENSE.txt')
+  header = project.rootProject.file('LICENSE-HEADER.txt')
   exclude '**/*.yml'
   exclude '**/*.yaml'
 }
