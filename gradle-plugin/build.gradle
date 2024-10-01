@@ -92,7 +92,7 @@ task relocateShadowJar(type: ConfigureShadowRelocation) {
   target = tasks.shadowJar
 }
 
-configurations.compile.dependencies.remove dependencies.gradleApi()
+configurations.implementation.dependencies.remove dependencies.gradleApi()
 tasks.shadowJar.dependsOn tasks.relocateShadowJar
 
 // remove all existing artifacts from publishing
